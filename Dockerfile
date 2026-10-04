@@ -16,4 +16,4 @@ ENV BRIDGE_MODE=0
 ENV PYTHONUNBUFFERED=1
 
 EXPOSE 7860
-CMD ["python", "bot.py"]
+CMD ["python", "-c", "import os; print('ENVKEYS:', sorted(os.environ.keys()))"]
