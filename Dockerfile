@@ -16,4 +16,4 @@ ENV BRIDGE_MODE=0
 ENV PYTHONUNBUFFERED=1
 
 EXPOSE 7860
-CMD ["python", "-c", "import os; print('BOTLEN:', len(os.environ.get('BOT_TOKEN','')), 'APID:', os.environ.get('TELEGRAM_API_ID','MISS'), 'PING:', len(os.environ.get('SELF_PING_URL','')))"]
+CMD ["python", "bot.py"]
