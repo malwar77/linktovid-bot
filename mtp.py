@@ -23,8 +23,6 @@ from types import SimpleNamespace
 import pyrogram
 from pyrogram import Client
 
-import ws_bridge
-
 log = logging.getLogger("mtp")
 
 BASEDIR = os.path.dirname(os.path.abspath(__file__))
@@ -99,6 +97,7 @@ async def get_client() -> Client:
         if os.environ.get("BRIDGE_MODE", "1") == "1":
             # Restricted-network mode (e.g. sandbox that only allows HTTPS):
             # route MTProto TCP through a websocket bridge.
+            import ws_bridge
             ws_bridge.start_bridge()
             _install_bridge_route()
         _client = Client(
