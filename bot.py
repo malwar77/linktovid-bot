@@ -390,10 +390,6 @@ def main():
     ping_url = os.environ.get("SELF_PING_URL", "").strip()
     if ping_url:
         _keep_alive(ping_url)
-        raise SystemExit(
-            "Set your bot token first:\n"
-            "  export BOT_TOKEN=123456:ABC-your-token-from-BotFather"
-        )
     app = (
         Application.builder()
         .token(BOT_TOKEN)
