@@ -368,11 +368,22 @@ def _serve_health(port: int):
 
 
 def main():
-    if not BOT_TOKEN:
-        raise SystemExit(
-            "Set your bot token first:\n"
-            "  export BOT_TOKEN=123456:ABC-your-token-from-BotFather"
-        )
+    # Some hosts inject env vars a beat after container start; wait for the
+    # token instead of exiting immediately (up to 10 minutes).
+    global BOT_TOKEN
+    _waited = 0
+    while not BOT_TOKEN:
+        BOT_TOKEN = os.environ.get("BOT_TOKEN", "") or os.environ.get("TELEGRAM_BOT_TOKEN", "")
+        if BOT_TOKEN:
+            break
+        if _waited >= 600:
+            raise SystemExit(
+                "Set your bot token first:\n"
+                "  export BOT_TOKEN=123456:ABC-your-token-from-BotFather"
+            )
+        log.info("waiting for BOT_TOKEN env (%ds)", _waited)
+        time.sleep(10)
+        _waited += 10
     hp = int(os.environ.get("PORT", "0") or 0)
     if hp:
         _serve_health(hp)
