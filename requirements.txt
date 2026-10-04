@@ -1,0 +1,7 @@
+python-telegram-bot~=21.6
+yt-dlp>=2024.8.6
+curl_cffi>=0.5.10
+mutagen>=1.47
+tgcrypto>=1.2.5
+pycryptodome>=3.20
+kurigram>=2.2.26
